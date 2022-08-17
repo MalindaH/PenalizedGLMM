@@ -79,7 +79,7 @@ function pglmm(
 
     # Define (normalized) weights for each observation
     w_old = eigenweights(nullmodel.family, eigvals, nullmodel.φ) # Vector{Float64}
-    println("w_old =  ", w)
+    println("w_old =  ", w_old)
 
     depths_list = Integer[]
     open(depthsfile, "r") do f
