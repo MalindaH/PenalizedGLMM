@@ -23,8 +23,8 @@
 function pglmm(
     # positional arguments
     nullmodel,
-    plinkfile::Union{Nothing, AbstractString} = nothing,
-    depthsfile::AbstractString; # ::Vector{Float64}
+    depthsfile::AbstractString, # ::Vector{Float64}
+    plinkfile::Union{Nothing, AbstractString} = nothing; 
     # keyword arguments
     snpfile::Union{Nothing, AbstractString} = nothing,
     snpmodel = ADDITIVE_MODEL,
