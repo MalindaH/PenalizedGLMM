@@ -84,7 +84,8 @@ function pglmm(
     depths_list = Integer[]
     open(depthsfile, "r") do f
         for ln in eachline(f)
-            push!(depths_list,ln)
+            print("ln: ", ln, "\t")
+            push!(depths_list,parse(Int64,ln))
         end
     end
     w = eigenweights(nullmodel.family, eigvals, nullmodel.φ) .* depths_list # element-wise multiplication
