@@ -79,18 +79,13 @@ function pglmm(
 
     # Define (normalized) weights for each observation
     # w_old = eigenweights(nullmodel.family, eigvals, nullmodel.φ) # Vector{Float64}
-    # println("w_old =  ", w_old)
-
     depths_list = Integer[]
     open(depthsfile, "r") do f
         for ln in eachline(f)
-            print("ln: ", ln, "\t")
             push!(depths_list,parse(Int64,ln))
         end
     end
-    # println("depths_list = ", depths_list)
     w = eigenweights(nullmodel.family, eigvals, nullmodel.φ) .* depths_list # element-wise multiplication
-    # println("w =  ", w)
     w_n = standardize_weights ? w / sum(w) : w
 
     # Initialize working variable and mean vector and initialize null deviance 
