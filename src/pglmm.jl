@@ -78,6 +78,7 @@ function pglmm(
 
     # Define (normalized) weights for each observation
     w = eigenweights(nullmodel.family, eigvals, nullmodel.φ)
+    println("w =  ", w)
     w_n = standardize_weights ? w / sum(w) : w
 
     # Initialize working variable and mean vector and initialize null deviance 
@@ -678,10 +679,8 @@ function Umul!(U::AbstractMatrix{T}, X::AbstractMatrix{T}; K::Integer = 1000) wh
 
     lastt = 0
     if (length(jseq)>0)
-            lastt = last(jseq)
+        lastt = last(jseq)
     end
-    # b = similar(X, n, length((last(jseq) + K):p))
-    # X[:, (last(jseq) + K):p] = mul!(b, U', view(X, :, (last(jseq) + K):p))
     b = similar(X, n, length((lastt + K):p))
     X[:, (lastt + K):p] = mul!(b, U', view(X, :, (lastt + K):p))
     return(X)
