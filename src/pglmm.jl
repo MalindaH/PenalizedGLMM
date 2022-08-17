@@ -23,7 +23,8 @@
 function pglmm(
     # positional arguments
     nullmodel,
-    plinkfile::Union{Nothing, AbstractString} = nothing;
+    plinkfile::Union{Nothing, AbstractString} = nothing,
+    depths::Vector{Float64};
     # keyword arguments
     snpfile::Union{Nothing, AbstractString} = nothing,
     snpmodel = ADDITIVE_MODEL,
@@ -77,7 +78,8 @@ function pglmm(
     eigvals, U = eigen(nullmodel.τV)
 
     # Define (normalized) weights for each observation
-    w = eigenweights(nullmodel.family, eigvals, nullmodel.φ)
+    # w = eigenweights(nullmodel.family, eigvals, nullmodel.φ) # Vector{Float64}
+    w = eigenweights(nullmodel.family, eigvals, nullmodel.φ) .* depths # element-wise multiplication
     println("w =  ", w)
     w_n = standardize_weights ? w / sum(w) : w
 
